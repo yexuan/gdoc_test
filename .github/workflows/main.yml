@@ -1,0 +1,21 @@
+name: Gdoc Task
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '10 */1 * * *'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Run scheduled task
+      run: |
+        pip install -r requirements.txt
+        python -m main run --private_key_id=${{ secrets.GDOC_PRIVATE_ID }} --private_key=${{ secrets.GDOC_PRIVATE_KEY }} --dbpassword=${{ secrets.CDBPASSWORD }}
