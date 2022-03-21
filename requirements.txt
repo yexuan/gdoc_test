@@ -1,5 +1,4 @@
 gspread
 pandas
 fire
-urllib
 sqlalchemy
