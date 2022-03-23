@@ -13,7 +13,7 @@ on:
 
 jobs: 
   labeled_firstgoodissue:
-    if: ${{ github.event.label.name == 'firstgoodissue' }}
+    if: contains(github.event.pull_request.labels.*.name, 'firstgoodissue')
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
@@ -23,12 +23,3 @@ jobs:
           echo "${{ github.event.pull_request.html_url }}"
           echo "labels: ${{ github.event.pull_request.labels.*.name }}"
           
-          
-  no_labeled_firstgoodissue:
-    if: ${{ github.event.label.name == 'firstgoodissue' }}
-    runs-on: ubuntu-latest
-    name: A job to say hello1
-    steps:
-      - name: Output linked Issue list
-        run: |
-          echo "${{ github.event.pull_request.title }}"
