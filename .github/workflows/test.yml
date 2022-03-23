@@ -20,5 +20,4 @@ jobs:
         run: |
           echo "${{ github.event.pull_request.title }}"
           echo "${{ github.event.pull_request.html_url }}"
-          echo "${{ github.event.closingIssuesReferences }}"
-          echo "${{ github.event.labels }}"
+          echo "${{ github.event.label.name }}"
