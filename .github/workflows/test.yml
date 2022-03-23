@@ -7,7 +7,7 @@ name: VerifyIssue
 on:
   # Triggers the workflow on push or pull request events but only for the main branch.
   pull_request:
-    types: [ opened, synchronize, reopened, edited ]
+    types: [ labeled, synchronize, reopened, edited ]
     branches: main
 
 
@@ -20,4 +20,4 @@ jobs:
         run: |
           echo "${{ github.event.pull_request.title }}"
           echo "${{ github.event.pull_request.html_url }}"
-          echo "${{ github.event.label.name }}"
+          echo "labels: ${{ github.event.pull_request.labels.*.name }}"
