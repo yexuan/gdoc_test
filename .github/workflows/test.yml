@@ -20,6 +20,5 @@ jobs:
       - name: Output linked Issue list
         run: |
           echo "${{ github.event.pull_request.title }}"
-          echo "${{ github.event.pull_request.html_url }}"
-          echo "labels: ${{ github.event.pull_request.labels.*.name }}"
+          echo "${{ github.event.pull_request.title }}" | awk -F " " '{print $NF}'
           
