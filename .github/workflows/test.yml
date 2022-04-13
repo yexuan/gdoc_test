@@ -6,20 +6,19 @@ name: VerifyIssue
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch.
-  pull_request:
-    types: [ labeled, synchronize, reopened, edited ]
-    branches: main
+  push:
+    branches:
+        - main
 
 
-jobs: 
-  labeled_firstgoodissue:
-    if: contains(github.event.pull_request.labels.*.name, 'firstgoodissue')
+jobs:
+  comment:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      - name: Output linked Issue list
-        run: |
-          echo "${{ github.event.pull_request.title }}"
-          export title=$(echo "${{ github.event.pull_request.title }}" | awk -F " " '{print $NF}')
-          echo $title
-          
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.TEST_TOKEN }}
+          pr-message: 'Adding this ${{ github.event.pull_request.user.login }} to Contributors...'
+          issue-message: 'Adding this ${{ github.event.issue.user.login }} to Contributors...'
+          run: |
+            echo 'Adding this ${{ github.event.pull_request.user.login }} to Contributors...'
