@@ -5,18 +5,19 @@
 name: VerifyIssue
 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch.
-  push:
+  pull_request:
     branches:
-        - main
+      - main
+    types: [closed]
 
 
 jobs:
   comment:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
-      - uses: actions/first-interaction@v1
+      - uses: deborah-digges/new-pull-request-comment-action@v1.0
         with:
-          repo-token: ${{ secrets.TEST_TOKEN }}
+          access-token: ${{ secrets.TEST_TOKEN }}
           run: |
             echo 'Adding this ${{ github.event.pull_request.user.login }} to Contributors...'
