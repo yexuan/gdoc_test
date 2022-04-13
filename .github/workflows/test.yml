@@ -16,9 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
-      - uses: deborah-digges/new-pull-request-comment-action@v1.9
+      - name: check on first merged pull requests
+        uses: sukki37/new-pull-request-comment-action@v0.1.0
+        id: first-check
         with:
           access-token: ${{ secrets.TEST_TOKEN }}
       - name: Run scheduled task
         run: |
           echo 'Adding this ${{ github.event.pull_request.user.login }} to Contributors...'
+          echo 'first-check output is ${{ steps.first-check.outputs.is_first_pr }}'
