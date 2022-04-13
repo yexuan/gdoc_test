@@ -20,7 +20,9 @@ jobs:
         uses: sukki37/new-pull-request-comment-action@v0.1.0
         id: first-check
         with:
-          access-token: ${{ secrets.TEST_TOKEN }}
+          message: 'hello world!'
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEST_TOKEN }}
       - name: Run scheduled task
         run: |
           echo 'Adding this ${{ github.event.pull_request.user.login }} to Contributors...'
